@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+// Determine API base URL with multiple fallbacks for easier manual deployment
+// Priority: explicit env var -> same origin /api (when served behind proxy) -> localhost dev
+let API_BASE_URL = process.env.REACT_APP_API_URL;
+if (!API_BASE_URL && typeof window !== 'undefined') {
+    API_BASE_URL = `${window.location.origin.replace(/\/$/, '')}/api`;
+}
+if (!API_BASE_URL) {
+    API_BASE_URL = 'http://localhost:3001/api';
+}
 
 class ApiService {
     constructor() {
