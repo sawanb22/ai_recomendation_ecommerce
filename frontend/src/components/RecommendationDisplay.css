@@ -1,0 +1,152 @@
+.recommendation-display {
+  width: 100%;
+}
+
+.recommendation-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.recommendation-header h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.search-query {
+  font-style: italic;
+  color: #666;
+  font-size: 1.1rem;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.ai-summary {
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
+  border: 1px solid #b3d9ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #667eea;
+}
+
+.ai-summary h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-summary p {
+  color: #2c5282;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.no-recommendations {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #dee2e6;
+}
+
+.no-recommendations p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.alternative-suggestions {
+  background: linear-gradient(135deg, #fff3cd 0%, #fef7e0 100%);
+  border: 1px solid #ffeaa7;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #f39c12;
+}
+
+.alternative-suggestions h4 {
+  color: #d68910;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alternative-suggestions p {
+  color: #8e6a0c;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.recommendation-stats {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(40, 167, 69, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.recommendation-stats p {
+  color: #155724;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.recommendation-stats strong {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .recommendation-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .search-query {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .recommendations-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .ai-summary,
+  .alternative-suggestions {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendation-header h2 {
+    font-size: 1.3rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
