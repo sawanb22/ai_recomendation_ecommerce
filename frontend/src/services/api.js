@@ -3,12 +3,20 @@ import axios from 'axios';
 // Determine API base URL with multiple fallbacks for easier manual deployment
 // Priority: explicit env var -> same origin /api (when served behind proxy) -> localhost dev
 let API_BASE_URL = process.env.REACT_APP_API_URL;
+
+// Auto-fix common mistake: missing /api suffix
+if (API_BASE_URL && !API_BASE_URL.includes('/api')) {
+    API_BASE_URL = API_BASE_URL.replace(/\/$/, '') + '/api';
+}
+
 if (!API_BASE_URL && typeof window !== 'undefined') {
     API_BASE_URL = `${window.location.origin.replace(/\/$/, '')}/api`;
 }
 if (!API_BASE_URL) {
     API_BASE_URL = 'http://localhost:3001/api';
 }
+
+console.log('[API] Using base URL:', API_BASE_URL);
 
 class ApiService {
     constructor() {
@@ -51,8 +59,23 @@ class ApiService {
     async getAllProducts() {
         try {
             const response = await this.api.get('/products');
-            return response.data;
+            const data = response.data;
+            
+            // Validate response is an array (common issue when API returns HTML error page)
+            if (!Array.isArray(data)) {
+                console.error('API /products returned non-array:', typeof data, data);
+                throw new Error(`API returned ${typeof data} instead of product array. Check backend URL.`);
+            }
+            
+            return data;
         } catch (error) {
+            // Better error messaging for common issues
+            if (error.response?.status === 404) {
+                throw new Error('Products API endpoint not found. Check REACT_APP_API_URL ends with /api');
+            }
+            if (error.response?.status >= 500) {
+                throw new Error('Backend server error. Please try again later.');
+            }
             throw new Error(`Failed to fetch products: ${error.message}`);
         }
     }

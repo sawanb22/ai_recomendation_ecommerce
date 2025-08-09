@@ -20,10 +20,18 @@ function App() {
     try {
       setLoading(true);
       const data = await getAllProducts();
+      
+      // Validate API response is an array
+      if (!Array.isArray(data)) {
+        console.error('API returned non-array:', typeof data, data);
+        throw new Error(`Expected array but got ${typeof data}. Check API endpoint.`);
+      }
+      
       setProducts(data);
     } catch (err) {
       setError('Failed to load products');
       console.error('Error loading products:', err);
+      setProducts([]); // Ensure products is always an array
     } finally {
       setLoading(false);
     }

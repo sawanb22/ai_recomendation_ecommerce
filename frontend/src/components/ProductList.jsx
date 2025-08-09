@@ -12,6 +12,16 @@ function ProductList({ products, loading }) {
     );
   }
 
+  // Defensive check: ensure products is an array before reduce
+  if (!Array.isArray(products)) {
+    console.warn('ProductList received non-array products:', typeof products, products);
+    return (
+      <div className="no-products">
+        <p>Unable to load products (invalid data format)</p>
+      </div>
+    );
+  }
+
   if (!products || products.length === 0) {
     return (
       <div className="no-products">
